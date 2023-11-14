@@ -24,9 +24,9 @@ const Home = () => {
 
   return (
     <>
-      <div className="my-20 justify-center items-center text-center flex flex-col min-h-screen">
+      <div className="my-40 justify-center items-center text-center flex flex-col min-h-screen">
         <h1 className="text-2xl font-bold font-sans">Books List</h1>
-        <div className="my-14 flex flex-wrap max-w-[80%] m-auto gap-4">
+        <div className="my-14 flex flex-wrap justify-center max-w-[80%] md:max-w-[90%] lg:max-w-[95%] m-auto xl:gap-6 gap-4 md:gap-1 lg:gap-4">
           {displayedBooks.map((book) => (
             <div
               class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border hover:shadow-xl"
