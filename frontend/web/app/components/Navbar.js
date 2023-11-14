@@ -1,22 +1,25 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 export default function Navbar() {
   const navLi = [
-    { id: "home", title: "Home" },
-    { id: "resources", title: "Resources" },
+    { id: "/", title: "Home" },
+    { id: "Add Books", title: "Add Books" },
   ];
 
   const [Open, setOpen] = useState(false);
 
   return (
     <>
-      <nav className=" py-5  bg-black ">
+      <nav className=" py-7  bg-black ">
         <div className="text-white flex md:items-baseline items-center  m-auto justify-between w-[80%] lg:w-[80%] md:w-[85%] ">
           {/* logo */}
           <div className="flex gap-2 cursor-pointer ">
-            <h1 className="text-2xl">Books Store</h1>
+            <Link href="/" className="text-2xl">
+              Books Store
+            </Link>
           </div>
 
           {/* ul */}
@@ -30,13 +33,14 @@ export default function Navbar() {
           >
             {/* ul for large screens */}
             <ul className="font-pop_1 lg:gap-8 xl:gap-12 md:gap-6 md:flex-row md:flex flex-col hidden gap-5 ">
-              {navLi.map(({ id, title, offset }) => (
-                <li
+              {navLi.map(({ id, title }) => (
+                <Link
+                  href={id}
                   className="text-xl md:text-lg lg:text-xl cursor-pointer"
                   key={id}
                 >
                   {title}
-                </li>
+                </Link>
               ))}
             </ul>
             {/* ul for mobile devices */}
