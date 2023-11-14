@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className=" py-5 fixed top-0 left-0 right-0 z-50 bg-black ">
+      <nav className=" py-5  bg-black ">
         <div className="text-white flex md:items-baseline items-center  m-auto justify-between w-[80%] lg:w-[80%] md:w-[85%] ">
           {/* logo */}
           <div className="flex gap-2 cursor-pointer ">
