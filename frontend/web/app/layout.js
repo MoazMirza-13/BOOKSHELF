@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Book Store",
+  icons: ["/favicon.ico?v=4"],
 };
 
 export default function RootLayout({ children }) {
