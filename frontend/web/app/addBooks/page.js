@@ -61,7 +61,7 @@ const AddBook = () => {
                 type="text"
                 id="name"
                 name="name"
-                className="block  w-[17rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
+                className="block  md:w-[17rem] w-[13rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
               />
               <ErrorMessage
                 name="name"
@@ -82,7 +82,7 @@ const AddBook = () => {
                 type="text"
                 id="author"
                 name="author"
-                className="block  w-[17rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
+                className="block  md:w-[17rem] w-[13rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
               />
               <ErrorMessage
                 name="author"
@@ -103,7 +103,7 @@ const AddBook = () => {
                 type="text"
                 id="imageUrl"
                 name="imageUrl"
-                className="block  w-[17rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
+                className="block  md:w-[17rem] w-[13rem] rounded-md border-0 p-[0.47rem] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-gray-400 focus:ring-inset focus:ring-gray-500  sm:text-sm sm:leading-6"
               />
               <ErrorMessage
                 name="imageUrl"
