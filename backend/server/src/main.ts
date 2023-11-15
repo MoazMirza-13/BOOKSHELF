@@ -8,8 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
   app.enableCors({
-    origin:
-      'https://book-store-git-test-deploying-branch-moazmirza-13.vercel.app/',
+    origin: 'https://localhostL3000/',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
