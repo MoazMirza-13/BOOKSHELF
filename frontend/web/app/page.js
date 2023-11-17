@@ -11,8 +11,8 @@ const Home = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          "https://book-store-ashen-gamma.vercel.app/books"
-        ); // Update with your backend URL
+          "https://book-store-production-1010.up.railway.app/books"
+        );
         setBooks(response.data);
       } catch (error) {
         console.error("Error fetching books:", error.message);
