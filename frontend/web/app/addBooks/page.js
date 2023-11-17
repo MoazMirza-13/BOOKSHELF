@@ -22,7 +22,10 @@ const AddBook = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const response = await axios.post("http://localhost:3000/books", values);
+      const response = await axios.post(
+        "https://book-store-ashen-gamma.vercel.app/books",
+        values
+      );
 
       if (response.status === 201) {
         toast.success("Book added successfully!");

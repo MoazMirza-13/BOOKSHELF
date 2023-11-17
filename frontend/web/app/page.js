@@ -10,7 +10,9 @@ const Home = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/books"); // Update with your backend URL
+        const response = await axios.get(
+          "https://book-store-ashen-gamma.vercel.app/books"
+        ); // Update with your backend URL
         setBooks(response.data);
       } catch (error) {
         console.error("Error fetching books:", error.message);
