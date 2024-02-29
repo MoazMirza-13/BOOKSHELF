@@ -22,19 +22,16 @@ const AddBook = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const response = await axios.post(
-        "https://book-store-git-api.vercel.app/books",
-        values
-      );
+      const response = await axios.post("http://localhost:3000/books", values);
 
       if (response.status === 201) {
         toast.success("Book added successfully!");
         resetForm();
       } else {
-        console.error("Error adding book:", response.statusText);
+        console.error("Error adding book:", response);
       }
     } catch (error) {
-      console.error("Error adding book:", error.message);
+      console.error("Error adding book:", error);
     } finally {
       setSubmitting(false);
     }
