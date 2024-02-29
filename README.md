@@ -1,5 +1,5 @@
 # BOOK-STORE
-Book store (Full stack application in which user can add more books)
+A simple Full Stack Application in which user can add more books.
 
 ## Project Screen Shot
 
