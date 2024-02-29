@@ -11,7 +11,7 @@ const Home = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          "https://book-store-production-1010.up.railway.app/books"
+          "https://book-store-git-api.vercel.app/books"
         );
         setBooks(response.data);
       } catch (error) {
