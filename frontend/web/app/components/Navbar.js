@@ -18,7 +18,7 @@ export default function Navbar() {
           {/* logo */}
           <div className="flex gap-2 cursor-pointer ">
             <Link href="/" className="text-2xl">
-              Book Store
+              Bookshelf
             </Link>
           </div>
 
