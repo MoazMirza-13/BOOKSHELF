@@ -1,4 +1,4 @@
-# BOOK-STORE
+# BOOKSHELF
 A simple Full Stack Application in which user can add more books.
 
 ## Technologies Used
@@ -10,4 +10,5 @@ A simple Full Stack Application in which user can add more books.
 
 ## Project Screen Shot
 
-![Screenshot (40)](https://github.com/MoazMirza-13/BOOK-STORE/assets/134006296/9b96c078-7ed3-4218-959a-5f9dca7a471e)
+![Screenshot (42)](https://github.com/MoazMirza-13/BOOK-STORE/assets/134006296/c62c0799-9b13-42d5-bc19-24d810ee32f7)
+
