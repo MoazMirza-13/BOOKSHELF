@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Bookshelf",
+  title: "BOOKSHELF",
   icons: ["/favicon.ico?v=4"],
 };
 
