@@ -5,8 +5,8 @@ import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 export default function Navbar() {
   const navLi = [
-    { id: "/", title: "Home" },
-    { id: "../addBooks", title: "Add Books" },
+    { id: "/", title: "HOME" },
+    { id: "../addBooks", title: "ADD BOOK" },
   ];
 
   const [Open, setOpen] = useState(false);
@@ -18,7 +18,7 @@ export default function Navbar() {
           {/* logo */}
           <div className="flex gap-2 cursor-pointer ">
             <Link href="/" className="text-2xl">
-              Bookshelf
+              BOOKSHELF
             </Link>
           </div>
 
