@@ -39,17 +39,17 @@ const Home = () => {
           <div className="my-14 flex flex-wrap justify-center max-w-[80%] md:max-w-[90%] lg:max-w-[95%] m-auto xl:gap-6 gap-4 md:gap-1 lg:gap-4">
             {displayedBooks.map((book) => (
               <div
-                class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border hover:shadow-xl"
+                className="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border hover:shadow-xl"
                 key={book._id}
               >
-                <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg h-80 rounded-xl bg-clip-border">
+                <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg h-80 rounded-xl bg-clip-border">
                   <img src={book.imageUrl} alt="book-image" />
                 </div>
-                <div class="p-6 text-center">
-                  <h4 class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <div className="p-6 text-center">
+                  <h4 className="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                     Name: {book.name}
                   </h4>
-                  <p class="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-gradient-to-tr from-slate-600 to-slate-400 bg-clip-text">
+                  <p className="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-gradient-to-tr from-slate-600 to-slate-400 bg-clip-text">
                     Author: {book.author}
                   </p>
                 </div>
