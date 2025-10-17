@@ -2,9 +2,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AddBook = () => {
   const initialValues = {
@@ -20,6 +20,7 @@ const AddBook = () => {
   });
 
   const { data: session } = useSession();
+  const router = useRouter();
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -34,7 +35,10 @@ const AddBook = () => {
       );
 
       if (response.status === 201) {
-        toast.success("Book added successfully!");
+        toast.success("Book added successfully!", {
+          onClose: () => router.push("/"),
+          autoClose: 2000,
+        });
         resetForm();
       } else {
         console.error("Error adding book:", response);
@@ -128,22 +132,6 @@ const AddBook = () => {
           >
             Add Book
           </button>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={false}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-            toastStyle={{
-              background: "#333",
-            }}
-            progressStyle={{ background: "white" }}
-          />
         </Form>
       </Formik>
     </div>

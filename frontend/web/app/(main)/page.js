@@ -2,28 +2,33 @@
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [showAllBooks, setShowAllBooks] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await axios.get(
-          "https://book-store-git-api.vercel.app/books"
-        );
-        setBooks(response.data);
-      } catch (error) {
-        console.error("Error fetching books:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: session } = useSession();
 
-    fetchBooks();
-  }, []);
+  useEffect(() => {
+    if (session) {
+      const fetchBooks = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/books/user`,
+            { params: { userId: session.user.id } }
+          );
+          setBooks(response.data);
+        } catch (error) {
+          console.error("Error fetching books:", error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchBooks();
+    }
+  }, [session]);
 
   const displayedBooks = showAllBooks ? books : books.slice(0, 5);
 
@@ -56,7 +61,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-          {!showAllBooks && (
+          {!showAllBooks && books.length > 5 && (
             <button
               onClick={() => setShowAllBooks(true)}
               className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-gray-600 border border-gray-700 rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"

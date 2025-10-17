@@ -21,4 +21,8 @@ export class BooksService {
   async findTopNBooks(n: number): Promise<Book[]> {
     return this.bookModel.find().limit(n).exec();
   }
+
+  async findByUserId(userId: string): Promise<Book[]> {
+    return this.bookModel.find({ user_id: userId }).exec();
+  }
 }
