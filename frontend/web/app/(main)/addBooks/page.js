@@ -1,11 +1,10 @@
 "use client";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
 import axios from "axios";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "next-auth/react";
 
 const AddBook = () => {
   const initialValues = {
@@ -20,11 +19,18 @@ const AddBook = () => {
     imageUrl: Yup.string().url("Invalid URL").required("Image URL is required"),
   });
 
+  const { data: session } = useSession();
+
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
+      const user_id = session.user.id;
+      const body = {
+        ...values,
+        user_id: user_id,
+      };
       const response = await axios.post(
-        "https://book-store-git-api.vercel.app/books",
-        values
+        `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/books`,
+        body
       );
 
       if (response.status === 201) {
@@ -123,8 +129,8 @@ const AddBook = () => {
             Add Book
           </button>
           <ToastContainer
-            position="top-right"
-            autoClose={2000}
+            position="bottom-right"
+            autoClose={false}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -132,7 +138,11 @@ const AddBook = () => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="colored"
+            theme="dark"
+            toastStyle={{
+              background: "#333",
+            }}
+            progressStyle={{ background: "white" }}
           />
         </Form>
       </Formik>

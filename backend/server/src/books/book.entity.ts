@@ -11,6 +11,9 @@ export class Book extends Document {
 
   @Prop({ required: true })
   imageUrl: string;
+
+  @Prop({ required: true })
+  user_id: string;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

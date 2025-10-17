@@ -26,6 +26,10 @@
 
     margin: 0px;
     padding: 0px;
+
+    .Toastify__toast--success .Toastify__toast-icon svg {
+      fill: white !important; /* the tick inside the toast */
+    }
   }
 }
 

@@ -17,7 +17,6 @@ export const authOptions = {
     async jwt({ token, user, account, profile }) {
       // When user first signs in
       if (user) {
-        // Send user info to NestJS API to create/update user
         const res = await fetch(`${NESTJS_API_URL}/auth/google`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -29,7 +28,7 @@ export const authOptions = {
           }),
         });
         const data = await res.json();
-        token.id = data.id; // NestJS user id
+        token.id = data.id;
         token.role = data.role;
       }
       return token;
