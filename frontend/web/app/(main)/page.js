@@ -2,24 +2,45 @@
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [showAllBooks, setShowAllBooks] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
   const { data: session } = useSession();
+  const isGuest = document.cookie.includes("guest=true");
 
   useEffect(() => {
-    if (session) {
+    if (session || isGuest) {
       const fetchBooks = async () => {
         try {
+          const options = session
+            ? { params: { userId: session.user.id } } // only send for logged-in users
+            : {}; // get dummy data for guest users
+
           const response = await axios.get(
             `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/books/user`,
-            { params: { userId: session.user.id } }
+            options
           );
-          setBooks(response.data);
+
+          const data = response.data;
+
+          if (isGuest) {
+            // Only first 5 dummy books and from local storage
+            const dummyBooks = data.slice(0, 5);
+
+            const localBooks =
+              JSON.parse(localStorage.getItem("guestBooks")) || [];
+            const mergedBooks = [...dummyBooks, ...localBooks];
+
+            setBooks(mergedBooks);
+          } else {
+            setBooks(data);
+          }
         } catch (error) {
           console.error("Error fetching books:", error.message);
         } finally {
@@ -28,15 +49,27 @@ const Home = () => {
       };
       fetchBooks();
     }
-  }, [session]);
+  }, [session, isGuest]);
 
   const displayedBooks = showAllBooks ? books : books.slice(0, 5);
+
+  const handleGuestSignOut = () => {
+    document.cookie = "guest=; path=/; max-age=0";
+    router.push("/signin");
+  };
 
   return (
     <>
       {loading ? (
         <div className="h-screen flex justify-center items-center ">
-          <ClipLoader color={"#374151"} loading={true} size={70} />
+          <ClipLoader
+            color={"#374151"}
+            loading={true}
+            size={70}
+            cssOverride={{
+              borderWidth: "4px",
+            }}
+          />
         </div>
       ) : (
         <div className="my-40 justify-center items-center text-center flex flex-col min-h-screen">
@@ -68,6 +101,20 @@ const Home = () => {
             >
               View All
             </button>
+          )}
+          {isGuest && (
+            <>
+              <button
+                onClick={handleGuestSignOut}
+                className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-gray-600 border border-gray-700 rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mt-6"
+              >
+                Continue to your account
+              </button>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Note: As a guest, new books will be temporarily added only for
+                24h.
+              </p>
+            </>
           )}
         </div>
       )}

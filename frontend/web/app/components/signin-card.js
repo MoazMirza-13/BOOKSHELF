@@ -1,13 +1,21 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function SignInCard() {
+  const router = useRouter();
+
   const handleGoogleSignIn = () => {
     try {
       signIn("google", { callbackUrl: "/" });
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleGuest = () => {
+    document.cookie = `guest=true; path=/; max-age=${60 * 60 * 24}`; // 1 day
+    router.push("/");
   };
 
   return (
@@ -33,6 +41,7 @@ export default function SignInCard() {
           type="button"
           className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/50"
           aria-label="Continue as Guest"
+          onClick={handleGuest}
         >
           Continue as Guest
         </button>

@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const AddBook = () => {
+  const router = useRouter();
+
   const initialValues = {
     name: "",
     author: "",
@@ -20,28 +22,47 @@ const AddBook = () => {
   });
 
   const { data: session } = useSession();
-  const router = useRouter();
+  const isGuest = document.cookie.includes("guest=true");
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const user_id = session.user.id;
-      const body = {
-        ...values,
-        user_id: user_id,
-      };
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/books`,
-        body
-      );
+      if (isGuest) {
+        // For guest users → save locally
+        const existingBooks =
+          JSON.parse(localStorage.getItem("guestBooks")) || [];
 
-      if (response.status === 201) {
-        toast.success("Book added successfully!", {
+        const expiry = Date.now() + 24 * 60 * 60 * 1000; // 24h
+        const bookWithExpiry = { ...values, expiry };
+
+        const updatedBooks = [...existingBooks, bookWithExpiry];
+        localStorage.setItem("guestBooks", JSON.stringify(updatedBooks));
+
+        toast.success("Book added temporarily as guest!", {
           onClose: () => router.push("/"),
           autoClose: 2000,
         });
+
         resetForm();
-      } else {
-        console.error("Error adding book:", response);
+      } else if (session?.user?.id) {
+        const body = {
+          ...values,
+          user_id: session.user.id,
+        };
+
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/books`,
+          body
+        );
+
+        if (response.status === 201) {
+          toast.success("Book added successfully!", {
+            onClose: () => router.push("/"),
+            autoClose: 2000,
+          });
+          resetForm();
+        } else {
+          console.error("Error adding book:", response);
+        }
       }
     } catch (error) {
       console.error("Error adding book:", error);
@@ -51,7 +72,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className="my-40  flex flex-col">
+    <div className="my-44  flex flex-col">
       <h1 className="text-2xl font-bold font-sans mb-8 text-center">
         Add Book
       </h1>
