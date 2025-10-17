@@ -9,10 +9,16 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [showAllBooks, setShowAllBooks] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isGuest, setIsGuest] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
-  const isGuest = document.cookie.includes("guest=true");
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      setIsGuest(document.cookie.includes("guest=true"));
+    }
+  }, []);
 
   useEffect(() => {
     if (session || isGuest) {
@@ -81,7 +87,11 @@ const Home = () => {
                 key={book._id}
               >
                 <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg h-80 rounded-xl bg-clip-border">
-                  <img src={book.imageUrl} alt="book-image" />
+                  <img
+                    src={book.imageUrl}
+                    alt="book-image"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="p-6 text-center">
                   <h4 className="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">

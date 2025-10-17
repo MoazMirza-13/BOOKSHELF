@@ -5,8 +5,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const AddBook = () => {
+  const [isGuest, setIsGuest] = useState(false);
+
   const router = useRouter();
 
   const initialValues = {
@@ -22,7 +25,12 @@ const AddBook = () => {
   });
 
   const { data: session } = useSession();
-  const isGuest = document.cookie.includes("guest=true");
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      setIsGuest(document.cookie.includes("guest=true"));
+    }
+  }, []);
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -38,10 +46,9 @@ const AddBook = () => {
         localStorage.setItem("guestBooks", JSON.stringify(updatedBooks));
 
         toast.success("Book added temporarily as guest!", {
-          onClose: () => router.push("/"),
-          autoClose: 2000,
+          autoClose: 1500,
         });
-
+        router.push("/");
         resetForm();
       } else if (session?.user?.id) {
         const body = {
@@ -56,9 +63,9 @@ const AddBook = () => {
 
         if (response.status === 201) {
           toast.success("Book added successfully!", {
-            onClose: () => router.push("/"),
-            autoClose: 2000,
+            autoClose: 1500,
           });
+          router.push("/");
           resetForm();
         } else {
           console.error("Error adding book:", response);
