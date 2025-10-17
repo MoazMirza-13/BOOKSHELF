@@ -71,8 +71,6 @@ const Home = () => {
           )}
         </div>
       )}
-      {/* testing routes */}
-      <button onClick={() => signOut()}>signout </button>
     </>
   );
 };

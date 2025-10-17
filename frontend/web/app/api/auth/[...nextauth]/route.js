@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const NESTJS_API_URL = process.env.NESTJS_API_URL;
-
 export const authOptions = {
   providers: [
     GoogleProvider({
@@ -15,18 +13,21 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user, account, profile }) {
-      if (user) {
+      if (account && user) {
         try {
-          const res = await fetch(`${NESTJS_API_URL}/auth/google`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: user.email,
-              name: user.name,
-              image: user.image,
-              googleId: profile?.sub,
-            }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_NESTJS_API_URL}/auth/google`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: user.email,
+                name: user.name,
+                image: user.image,
+                googleId: profile?.sub,
+              }),
+            }
+          );
           const data = await res.json();
 
           token.id = data.id;
