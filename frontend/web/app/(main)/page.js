@@ -4,6 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -77,7 +78,7 @@ const Home = () => {
             }}
           />
         </div>
-      ) : (
+      ) : books.length >= 1 ? (
         <div className="my-40 justify-center items-center text-center flex flex-col min-h-screen">
           <h1 className="text-2xl font-bold font-sans">Books List</h1>
           <div className="my-14 flex flex-wrap justify-center max-w-[80%] md:max-w-[90%] lg:max-w-[95%] m-auto xl:gap-6 gap-4 md:gap-1 lg:gap-4">
@@ -126,6 +127,12 @@ const Home = () => {
               </p>
             </>
           )}
+        </div>
+      ) : (
+        <div className="justify-center items-center text-center flex flex-col min-h-screen">
+          <Link href={"/addBooks"} className=" text-lg text-muted-foreground">
+            Your shelf is empty — add some books to see previews!
+          </Link>
         </div>
       )}
     </>
