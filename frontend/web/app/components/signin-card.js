@@ -1,4 +1,15 @@
+"use client";
+import { signIn } from "next-auth/react";
+
 export default function SignInCard() {
+  const handleGoogleSignIn = () => {
+    try {
+      signIn("google", { callbackUrl: "/" });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section aria-label="Sign in" className="mx-auto w-full max-w-sm">
       <div className="grid gap-3">
@@ -6,6 +17,7 @@ export default function SignInCard() {
           type="button"
           className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-[0.85] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/50"
           aria-label="Login with Google"
+          onClick={handleGoogleSignIn}
         >
           Sign in with Google
         </button>

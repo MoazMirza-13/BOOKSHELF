@@ -15,22 +15,27 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user, account, profile }) {
-      // When user first signs in
       if (user) {
-        const res = await fetch(`${NESTJS_API_URL}/auth/google`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: user.email,
-            name: user.name,
-            image: user.image,
-            googleId: profile?.sub,
-          }),
-        });
-        const data = await res.json();
-        token.id = data.id;
-        token.role = data.role;
+        try {
+          const res = await fetch(`${NESTJS_API_URL}/auth/google`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: user.email,
+              name: user.name,
+              image: user.image,
+              googleId: profile?.sub,
+            }),
+          });
+          const data = await res.json();
+
+          token.id = data.id;
+          token.role = data.role;
+        } catch (err) {
+          console.error("Error posting to NestJS backend:", err);
+        }
       }
+
       return token;
     },
     async session({ session, token }) {
@@ -38,6 +43,7 @@ export const authOptions = {
         session.user.id = token.id;
         session.user.role = token.role;
       }
+
       return session;
     },
   },

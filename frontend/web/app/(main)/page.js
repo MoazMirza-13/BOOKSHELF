@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -71,6 +71,8 @@ const Home = () => {
           )}
         </div>
       )}
+      {/* testing routes */}
+      <button onClick={() => signOut()}>signout </button>
     </>
   );
 };
